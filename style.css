@@ -9,6 +9,8 @@ body {
 	text-transform:uppercase;
 }
 
+
+/*commented out old nav bar
 #nav-bar {
 	position:fixed;
 	bottom:1px;
@@ -20,7 +22,7 @@ body {
 	width:470px;
 	height:70px;
 }
-
+*/
 .slide {
 	margin: 0 auto;
 	width: 99%;
