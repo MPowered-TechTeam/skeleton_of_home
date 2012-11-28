@@ -50,7 +50,7 @@
       * element's location
       **/
      function _show(target_elm) {
-       var dialog_content = $(target_elm).find(config.dialog_content_selector);
+       var dialog_content = $(target_elm).next(config.dialog_content_selector);
        var dialog_box = _create(dialog_content);
 
        var is_top_right = $(target_elm).hasClass("tooltiptopright");
