@@ -77,6 +77,10 @@ body {
 	vertical-align:middle;
 }
 
+.projectdata {
+	display:none;
+}
+
 .person {
 	width:7rem;
 	margin:0.5rem;

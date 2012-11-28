@@ -1,40 +1,161 @@
 <!doctype html>
 
 <html>
+	<script src="jquery.localscroll.js" type="text/javascript"></script> 
+	<script src="jquery.scrollTo.js" type="text/javascript"></script> 
+		<script type="text/javascript" src="jquery-ui-1.9.2.custom/js/jquery-1.8.3.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.flip.min.js"></script>
+	<script src="jquery.localscroll.js" type="text/javascript"></script> 
+	<script src="jquery.scrollTo.js" type="text/javascript"></script> 
+	<script type="text/javascript">
+			$(document).ready(function(){
+	/* The following code is executed once the DOM is loaded */
+	
+	$('.project').bind("click",function(){
+		
+		// $(this) point to the clicked .sponsorFlip element (caching it in elem for speed):
+		
+		var elem = $(this);
+		
+		// data('flipped') is a flag we set when we flip the element:
+		
+		if(elem.data('flipped'))
+		{
+			// If the element has already been flipped, use the revertFlip method
+			// defined by the plug-in to revert to the default state automatically:
+			
+			elem.revertFlip();
+			
+			// Unsetting the flag:
+			elem.data('flipped',false)
+		}
+		else
+		{
+			// Using the flip method defined by the plugin:
+			
+			elem.flip({
+				direction:'lr',
+				speed: 350,
+				onBefore: function(){
+					// Insert the contents of the .sponsorData div (hidden from view with display:none)
+					// into the clicked .sponsorFlip div before the flipping animation starts:
+					
+					elem.html(elem.siblings('.projectdata').html());
+				}
+			});
+			
+			// Setting the flag:
+			elem.data('flipped',true);
+		}
+	});
+	
+});
+		</script>
+	<script>
+		$(function()
+		{
+			 
+			    // grab the initial top offset of the navigation 
+			    var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+			     
+			    // our function that decides weather the navigation bar should have "fixed" css position or not.
+			    var sticky_navigation = function(){
+			        var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+			         
+			        // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+			        // otherwise change it back to relative
+			        if (scroll_top > sticky_navigation_offset_top) { 
+			            $('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
+
+			        } else {
+			            $('#sticky_navigation').css({ 'position': 'relative' }); 
+			        }
+
+
+			        $('#home').removeClass('selected')
+			        $('#who').removeClass('selected')
+			        $('#projects').removeClass('selected')
+			        $('#people').removeClass('selected')
+			        $('#involved').removeClass('selected')
+
+			        if (scroll_top > $('#scrollto1').offset().top && scroll_top < $('#scrollto2').offset().top) {
+			        	$('#home').addClass('selected')
+			        	//function to change class of scrollto1 to selected
+			        }
+
+			        if (scroll_top > $('#scrollto2').offset().top && scroll_top < $('#scrollto3').offset().top) {
+			        	$('#who').addClass('selected')
+			        	//function to change class of scrollto1 to selected
+			        }
+			        if (scroll_top > $('#scrollto3').offset().top && scroll_top < $('#scrollto4').offset().top) {
+			        	$('#projects').addClass('selected')
+			        	//function to change class of scrollto1 to selected
+			        }
+			        if (scroll_top > $('#scrollto4').offset().top && scroll_top < $('#scrollto5').offset().top) {
+			        	$('#people').addClass('selected')
+			        	//function to change class of scrollto1 to selected
+			        }
+			        if (scroll_top > $('#scrollto5').offset().top) {
+			        	$('#involved').addClass('selected')
+			        	//function to change class of scrollto1 to selected
+			        }
+
+
+			    };
+			     
+			    // run our function on load
+			    sticky_navigation();
+			     
+			    // and run it again every time you scroll
+			    $(window).scroll(function() {
+			         sticky_navigation();
+			    });
+			 
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function()
+		 {
+	   		$('#scrollanimate').localScroll({duration:800});
+	   	 });
+	</script>
 
 	<head>
 		<title>MPowered Entrepreneurship</title>
 		<meta charset="utf-8" />
-		<script type="text/javascript" src="jquery-ui-1.9.2.custom/js/jquery-1.8.3.js"></script>
-		<script type="text/javascript" src="jquery-ui-1.9.2.custom/js/jquery-ui-1.9.2.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.flip.min.js"></script>
-	<!--CHECK to see if jquery is working
-		<script type="text/javascript">
-			$(function() {
-
-				$("body").html('test');
-			});
-		</script>
-	-->
-	
 		<link rel="stylesheet" type="text/css" href="reset.css" />
 		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="nav.css" />
+
 	</head>
 
 	<body>
-	
+	<!--commented out the old navbar-->
 	<!--<div id="nav-bar"></div>-->
 	
-	<div class="slide" style="background-color:blue;margin-top:0px">
+	<div class="slide" id="scrollto1" style="background-color:blue;margin-top:0px">
 	
 		<div class="logo">
 		</div>
 		
 	</div>
+		<div id="sticky_navigation_wrapper">
+	        <div id="sticky_navigation">
+	            <div class="demo_container">
+	                <ul id="scrollanimate">
+	                    <li ><a id='home' href="#scrollto1">HOME</a></li>
+	                    <li ><a id='who' href="#scrollto2">Who We Are</a></li>
+	                    <li ><a id='projects'href="#scrollto3">Our Projects</a></li>
+	                    <li ><a id='people' href="#scrollto4">Out People</a></li>
+	                    <li ><a id='involved'href="#scrollto5">Get Involved</a></li>
+	                </ul>
+	            </div>
+	        </div>
+    	</div>
 	
-	
-	
-	<div class="slide" style="background-color:red;">
+	<div class="slide" id="scrollto2" style="background-color:red;">
 	
 		<div class="who-we-are">
 			<h1>What We Do</h1>
@@ -45,54 +166,102 @@
 	
 	
 	
-	<div class="slide" style="background-color:purple;">
+	<div class="slide" id="scrollto3" style="background-color:purple;">
 		<div class="title">
 			Our Projects
-		</div>
+			</div>
 
-		<div id="project-grid">
-			<div class="project">
-			1000 Pitches
+				<div id="project-grid">
+			<div>
+				<div class="project">
+				1000 Pitches
+				</div>
+				<div class="projectdata">
+					Hi
+				</div>
 			</div>
-			<div class="project">
-			MPowered Career Fair
+			<div>
+				<div class="project">
+				MPowered Career Fair
+				</div>
+				<div class="projectdata">
+					Mpowered
+				</div>
 			</div>
-			<div class="project">
-			eRes
+			<div>
+				<div class="project">
+				eRes
+				</div>
+				<div class="projectdata">
+					Mpowered
+				</div>
 			</div>
-			<div class="project">
-			1000 Pitches Summit
+			<div>
+				<div class="project">
+				1000 Pitches Summit
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
-			<div class="project">
-			Startup Weekend
+			<div>
+				<div class="project">
+				Startup Weekend
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
-			<div class="project">
-			Global Entrepreneurship Week
+			<div>
+				<div class="project">
+				Global Entrepreneurship Week
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
-			<div class="project">
-			EDUpreneurship Conference
+			<div>
+				<div class="project">
+				EDUpreneurship Conference
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
-			<div class="project">
-			Startup Crash Course
+			<div>
+				<div class="project">
+				Startup Crash Course
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
 			<div class="project" style="background:none;">
-			
 			</div>
-			<div class="project">
-			The Kenya Project
+			<div>
+				<div class="project">
+				The Kenya Project
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
-			<div class="project">
-			Momentum
+			<div>
+				<div class="project">
+				Momentum
+				</div>
+				<div class="projectdata">
+						Mpowered
+				</div>
 			</div>
 			<div class="project" style="background:none;">
-			
 			</div>
 			
 		</div>
 	</div>
 	
 	
-	<div class="slide" style="background-color:orange;">
+	<div class="slide"  id="scrollto4" style="background-color:orange;">
 		<div class="title">
 			Our People
 		</div>
@@ -150,7 +319,7 @@
 	</div>
 	
 	
-	<div class="slide" style="background-color:green">
+	<div class="slide" id="scrollto5" style="background-color:green">
 		<div class="title">
 			Get Involved
 		</div>
